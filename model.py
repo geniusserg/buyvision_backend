@@ -10,6 +10,7 @@ class GTINAnswer():
         self.date = datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
         self.gtin = gtin
         self.products = products
+        self.error = error
 
 class Product():
     description = ""
