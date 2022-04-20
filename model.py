@@ -4,13 +4,13 @@ import datetime
 class GTINAnswer():
     gtin = ""
     products = []
-    error = ""
+    status = ""
     date = ""
-    def __init__(self, gtin, products=[], error=""):
+    def __init__(self, gtin, products=[], status="Success"):
         self.date = datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
         self.gtin = gtin
         self.products = products
-        self.error = error
+        self.status = status
 
 class Product():
     description = ""

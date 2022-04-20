@@ -39,7 +39,7 @@ def getProducts(gtin):
     print(urls['gs1']+gtin)
     result =  parsers['gs1'].parse(htmlOutput)
     if result == None:
-        return GTINAnswer(gtin, error="Product is not found")
+        return GTINAnswer(gtin, status="Not found")
     return GTINAnswer(gtin, [result])
 
 
