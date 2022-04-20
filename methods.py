@@ -1,7 +1,7 @@
 from email import parser
 from bs4 import BeautifulSoup
 import requests 
-from model import Product
+from model import GTINAnswer, Product
 
 
 class Parser():
@@ -15,8 +15,7 @@ class ParserGS1(Parser):
         company = bs.select('body > div > div.content-wrap--shadow > section > div.product-card__header-block > p.product-card__header-company')[0].string.strip()
         brand = bs.find_all('table', recursive=True)[1].find_all('tr', recursive=True)[2].find('span', attrs={'class':'text2'}).text.strip()
         weight = bs.find_all('table', recursive=True)[1].find_all('tr', recursive=True)[3].find('span', attrs={'class':'text2'}).text.strip()
-        print(weight)
-        return Product("", name, company, brand, weight) # gtin is separatly defined
+        return Product(name, brand, company, weight) # gtin is separatly defined
 
 class ParserBL(Parser):
     def parse(self,html):
@@ -36,7 +35,6 @@ def getProducts(gtin):
     htmlOutput = requests.get(urls['gs1']+gtin).text
     print(urls['gs1']+gtin)
     result =  parsers['gs1'].parse(htmlOutput)
-    result.gtin = str(gtin)
-    return result
+    return GTINAnswer(gtin, [result])
 
 

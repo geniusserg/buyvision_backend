@@ -15,7 +15,7 @@ app.config["TESTING"] = True
 def index():
     gtin = request.args.get('gtin')
     listProducts = methods.getProducts(gtin)
-    return json.dumps(listProducts.__dict__, ensure_ascii=False)
+    return json.dumps(listProducts.__dict__, ensure_ascii=False, default=lambda o: o.__dict__)
 
 def getClient():
     app.run()

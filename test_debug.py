@@ -3,7 +3,8 @@
 
 import pytest 
 import requests
+from app import *
 
 def test_crem():
-    product = requests.get('http://localhost:5000/gtin?gtin=4607092074702').text
+    product = getClient().get('gtin?gtin=4607092074702').text
     assert  'Стоп проблема' in product
