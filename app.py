@@ -17,6 +17,10 @@ def searchProductByGtin():
     listProducts = methods.getProducts(gtin)
     return json.dumps(listProducts.__dict__, ensure_ascii=False, default=lambda o: o.__dict__)
 
+@app.route('/search/lenta', methods=['GET'])
+def searchByName():
+    product = request.args.get('text')
+    
 
 def getClient():
     app.run()

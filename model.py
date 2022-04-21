@@ -20,4 +20,8 @@ class ProductCard(Product):
         self.attrs = attrs
         self.image = image
         self.site = site
+    
+    def __str__(self):
+        return json.dumps(self.__dict__, ensure_ascii=False)
+    
         
