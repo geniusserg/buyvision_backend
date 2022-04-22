@@ -20,5 +20,3 @@ def getProductCard(productUrl):
     htmlOutput = requests.get(productUrl, headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36"}).text
     result =  ParserLenta().parse(htmlOutput)
     return result
-
-print(getProductCard("https://lenta.com/product/maslo-podsolnechnoe-miladora-raf-dez-vymorozh-1-sort-rossiya-09l-585662/"))
