@@ -1,18 +1,11 @@
 import json
 import datetime
 
-class GTINAnswer():
-    def __init__(self, gtin, product=None, status="Success"):
-        self.date = datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
-        self.gtin = gtin
-        self.product = product
-        self.status = status
-
 class Product():
-    def __init__(self, name, brand = "", company = "", weight = "") -> None:
+    def __init__(self, name, description = "", manufacturer = "", weight = "") -> None:
         self.name = name
-        self.brand = brand
-        self.company = company
+        self.description = description
+        self.company = manufacturer
         self.weight = weight
 
 class ProductCard(Product):

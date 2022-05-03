@@ -1,7 +1,7 @@
 from email import parser
 from bs4 import BeautifulSoup
 import requests 
-from model import GTINAnswer, Product
+from model import Product
 
 
 class Parser():
@@ -18,7 +18,7 @@ class ParserGS1(Parser):
         company = bs.select('body > div > div.content-wrap--shadow > section > div.product-card__header-block > p.product-card__header-company')[0].string.strip()
         brand = bs.find_all('table', recursive=True)[1].find_all('tr', recursive=True)[2].find('span', attrs={'class':'text2'}).text.strip()
         weight = bs.find_all('table', recursive=True)[1].find_all('tr', recursive=True)[3].find('span', attrs={'class':'text2'}).text.strip()
-        return Product(name, brand, company, weight) # gtin is separatly defined
+        return Product(brand, name, company, weight) # gtin is separatly defined
 
 class ParserBL(Parser):
     def parse(self,html):
@@ -29,17 +29,16 @@ urls = {
     'gs1': "https://srs.gs1ru.org/id/gtin/",  
     'bl' : "https://barcode-list.ru/barcode/RU/%D0%9F%D0%BE%D0%B8%D1%81%D0%BA.htm?barcode="
 }
+
 parsers = {
     'gs1': ParserGS1(),
     'bl' : ParserBL()
 }
 
-def getProducts(gtin):
-    htmlOutput = requests.get(urls['gs1']+gtin).text
-    print(urls['gs1']+gtin)
-    result =  parsers['gs1'].parse(htmlOutput)
-    if result == None:
-        return GTINAnswer(gtin, status="Not found")
-    return GTINAnswer(gtin, [result])
+def getProducts(gtin, method="gs1"):
+    htmlOutput = requests.get(urls[method]+gtin).text
+    print(urls[method]+gtin)
+    result =  parsers[method].parse(htmlOutput)
+    return result
 
-
+getProducts("4607092074702")
